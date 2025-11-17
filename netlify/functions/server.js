@@ -16,16 +16,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   return "Welcome to food ordering app backend";
 })
 
-app.get('/meals', async (req, res) => {
+app.get('/api/meals', async (req, res) => {
   const meals = await fs.readFile('/data/available-meals.json', 'utf8');
   res.json(JSON.parse(meals));
 });
 
-app.post('/orders', async (req, res) => {
+app.post('/api/orders', async (req, res) => {
   const orderData = req.body.order;
 
   if (orderData === null || orderData.items === null || orderData.items.length === 0) {
