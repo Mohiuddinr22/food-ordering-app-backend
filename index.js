@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 
 import bodyParser from 'body-parser';
 import express from 'express';
+import serverless from "serverless-http";
 
 const app = express();
 
@@ -68,4 +69,4 @@ app.use((req, res) => {
 
 //app.listen(3000);
 
-export default app;
+export const handler = serverless(app);
