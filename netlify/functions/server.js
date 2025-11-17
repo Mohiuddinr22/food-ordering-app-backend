@@ -16,16 +16,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   return "Welcome to food ordering app backend";
 })
 
-app.get('/api/meals', async (req, res) => {
-  const meals = await fs.readFile('/data/available-meals.json', 'utf8');
+app.get('/meals', async (req, res) => {
+  const meals = await fs.readFile('data/available-meals.json', 'utf8');
   res.json(JSON.parse(meals));
 });
 
-app.post('/api/orders', async (req, res) => {
+app.post('/orders', async (req, res) => {
   const orderData = req.body.order;
 
   if (orderData === null || orderData.items === null || orderData.items.length === 0) {
@@ -56,10 +56,10 @@ app.post('/api/orders', async (req, res) => {
     ...orderData,
     id: (Math.random() * 1000).toString(),
   };
-  const orders = await fs.readFile('/data/orders.json', 'utf8');
+  const orders = await fs.readFile('data/orders.json', 'utf8');
   const allOrders = JSON.parse(orders);
   allOrders.push(newOrder);
-  await fs.writeFile('/data/orders.json', JSON.stringify(allOrders));
+  await fs.writeFile('data/orders.json', JSON.stringify(allOrders));
   res.status(201).json({ message: 'Order created!' });
 });
 
